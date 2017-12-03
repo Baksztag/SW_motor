@@ -2,6 +2,10 @@ class MotorControl:
     def __init__(self, speed=0.0, direction=1):
         self.direction = direction
         self.speed = speed
+        self.running = False
+
+    def run_motor(self):
+        self.running = True
 
     def switch_direction(self):
         self.direction = -1 * self.direction

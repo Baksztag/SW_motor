@@ -14,3 +14,8 @@ class Vehicle:
         self.__left_motor = Motor(1, LEFT_MOTOR_NAME, LEFT_MOTOR_PINS, self.__left_motor_control)
         self.__right_motor = Motor(2, RIGHT_MOTOR_NAME, RIGHT_MOTOR_PINS, self.__right_motor_control)
 
+    def start(self):
+        self.__left_motor.start()
+        self.__right_motor.start()
+        self.__left_motor_control.run_motor()
+        self.__right_motor_control.run_motor()

@@ -33,7 +33,7 @@ class Motor(threading.Thread):
         step_count = len(self.__sequence)
         step_counter = 0
 
-        while True:
+        while self.__control.running:
             print(self.name)
             print(step_counter)
             print(self.__sequence[step_counter])
