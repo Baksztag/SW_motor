@@ -52,6 +52,6 @@ class Motor(threading.Thread):
                     if step_counter >= step_count:
                         step_counter = 0
                     if step_counter < 0:
-                        step_counter = step_count
+                        step_counter = step_count - 1
 
                     time.sleep(1 / (self.__max_speed * self.__control.speed))
