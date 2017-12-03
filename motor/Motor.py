@@ -21,7 +21,7 @@ class Motor(threading.Thread):
         ]
         self.__pins = pins
         self.__max_speed = 1000.0
-        self.set_up_pins()
+        self.__set_up_pins()
 
     def __set_up_pins(self):
         GPIO.setmode(GPIO.BCM)
