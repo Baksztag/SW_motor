@@ -4,8 +4,8 @@ from motor.MotorControl import MotorControl
 
 LEFT_MOTOR_NAME = 'LEFT_MOTOR'
 RIGHT_MOTOR_NAME = 'RIGHT_MOTOR'
-LEFT_MOTOR_PINS = []
-RIGHT_MOTOR_PINS = []
+LEFT_MOTOR_PINS = [17, 22, 23, 24]
+RIGHT_MOTOR_PINS = [5, 6, 12, 13]
 
 
 class VehicleDrive(threading.Thread):
