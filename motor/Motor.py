@@ -20,10 +20,10 @@ class Motor(threading.Thread):
             [0, 0, 0, 1]
         ]
         self.__pins = pins
-        self.__max_speed = 100.0
+        self.__max_speed = 1000.0
         self.set_up_pins()
 
-    def set_up_pins(self):
+    def __set_up_pins(self):
         GPIO.setmode(GPIO.BCM)
         for pin in self.__pins:
             GPIO.setup(pin, GPIO.OUT)
@@ -38,19 +38,20 @@ class Motor(threading.Thread):
             print(step_counter)
             print(self.__sequence[step_counter])
 
-            for pin in range(0, 4):
-                xpin = self.__pins[pin]  # Get GPIO
-                if self.__sequence[step_counter][pin] != 0:
-                    print(" Enable GPIO %i" % xpin)
-                    GPIO.output(xpin, True)
-                else:
-                    GPIO.output(xpin, False)
-            print('-----------')
+            while self.__control.speed > 0.000001:
+                for pin in range(0, 4):
+                    xpin = self.__pins[pin]
+                    if self.__sequence[step_counter][pin] != 0:
+                        print(" Enable GPIO %i" % xpin)
+                        GPIO.output(xpin, True)
+                    else:
+                        GPIO.output(xpin, False)
+                print('-----------')
 
-            step_counter += self.__control.direction
-            if step_counter >= step_count:
-                step_counter = 0
-            if step_counter < 0:
-                step_counter = step_count
+                step_counter += self.__control.direction
+                if step_counter >= step_count:
+                    step_counter = 0
+                if step_counter < 0:
+                    step_counter = step_count
 
-            time.sleep(1 / (self.__max_speed * self.__control.speed))
+                time.sleep(1 / (self.__max_speed * self.__control.speed))
