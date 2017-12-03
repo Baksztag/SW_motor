@@ -8,7 +8,7 @@ class MotorControl:
         self.running = True
 
     def switch_direction(self):
-        self.direction = -1 * self.direction
+        self.direction *= -1
 
     def change_speed(self, speed):
         if speed <= 0.01:

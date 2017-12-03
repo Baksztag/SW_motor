@@ -33,25 +33,25 @@ class Motor(threading.Thread):
         step_count = len(self.__sequence)
         step_counter = 0
 
-        while self.__control.running:
-            print(self.name)
-            print(step_counter)
-            print(self.__sequence[step_counter])
+        while True:
+                while self.__control.speed > 0.000001 and self.__control.running:
+                    print(self.name)
+                    print(step_counter)
+                    print(self.__sequence[step_counter])
 
-            while self.__control.speed > 0.000001:
-                for pin in range(0, 4):
-                    xpin = self.__pins[pin]
-                    if self.__sequence[step_counter][pin] != 0:
-                        print(" Enable GPIO %i" % xpin)
-                        GPIO.output(xpin, True)
-                    else:
-                        GPIO.output(xpin, False)
-                print('-----------')
+                    for pin in range(0, 4):
+                        xpin = self.__pins[pin]
+                        if self.__sequence[step_counter][pin] != 0:
+                            print(" Enable GPIO %i" % xpin)
+                            GPIO.output(xpin, True)
+                        else:
+                            GPIO.output(xpin, False)
+                    print('-----------')
 
-                step_counter += self.__control.direction
-                if step_counter >= step_count:
-                    step_counter = 0
-                if step_counter < 0:
-                    step_counter = step_count
+                    step_counter += self.__control.direction
+                    if step_counter >= step_count:
+                        step_counter = 0
+                    if step_counter < 0:
+                        step_counter = step_count
 
-                time.sleep(1 / (self.__max_speed * self.__control.speed))
+                    time.sleep(1 / (self.__max_speed * self.__control.speed))
