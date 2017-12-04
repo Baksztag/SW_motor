@@ -12,18 +12,18 @@ class Vehicle(threading.Thread):
         self.__queue_lock = lock
 
     def execute_command(self, command):
-        if command == START:
-            pass
-        elif command == STOP:
-            pass
-        elif command == GO_FORWARD:
-            pass
-        elif command == GO_BACKWARD:
-            pass
-        elif command == GO_LEFT:
-            pass
-        elif command == GO_RIGHT:
-            pass
+        if command.type == START:
+            self.__drive.start_vehicle()
+        elif command.type == STOP:
+            self.__drive.stop_vehicle()
+        elif command.type == GO_FORWARD:
+            self.__drive.go_forward()
+        elif command.type == GO_BACKWARD:
+            self.__drive.go_backwards()
+        elif command.type == GO_LEFT:
+            self.__drive.turn_left()
+        elif command.type == GO_RIGHT:
+            self.__drive.turn_right()
         else:
             pass
 
@@ -38,12 +38,3 @@ class Vehicle(threading.Thread):
                 self.__queue_lock.release()
             else:
                 self.__queue_lock.release()
-        # time.sleep(1)
-        # self.__drive.drive_back()
-        # time.sleep(1)
-        # self.__drive.drive_back()
-        # time.sleep(1)
-        # self.__drive.drive_back()
-        # time.sleep(1)
-        # self.__drive.drive_back()
-        # self.__drive.join()

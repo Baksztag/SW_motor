@@ -1,4 +1,15 @@
-from vehicle.Vehicle import Vehicle
+import queue
+import threading
 
-vehicle = Vehicle()
+from vehicle.Vehicle import Vehicle
+from control.KeyboardControl import KeyboardControl
+
+command_queue = queue.Queue(10)
+queue_lock = threading.Lock()
+
+vehicle = Vehicle(command_queue, queue_lock)
+control = KeyboardControl(command_queue, queue_lock)
+
 vehicle.start()
+control.run()
+vehicle.join()

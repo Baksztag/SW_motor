@@ -7,6 +7,9 @@ class MotorControl:
     def run_motor(self):
         self.running = True
 
+    def stop_motor(self):
+        self.running = False
+
     def switch_direction(self):
         self.direction *= -1
 
