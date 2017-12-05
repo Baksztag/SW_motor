@@ -1,15 +1,13 @@
-# import time
 import threading
 from vehicle.VehicleDrive import VehicleDrive
 from control.command_types import *
 
 
 class Vehicle(threading.Thread):
-    def __init__(self, queue, lock):
+    def __init__(self, queue):
         threading.Thread.__init__(self)
         self.__drive = VehicleDrive()
         self.__command_queue = queue
-        self.__queue_lock = lock
 
     def execute_command(self, command):
         if command.type == START:
@@ -29,12 +27,6 @@ class Vehicle(threading.Thread):
 
     def run(self):
         self.__drive.start()
-        # TODO Implement Command queue
         while True:
-            self.__queue_lock.acquire()
-            if not self.__command_queue.empty():
-                command = self.__command_queue.get()
-                self.execute_command(command)
-                self.__queue_lock.release()
-            else:
-                self.__queue_lock.release()
+            command = self.__command_queue.get()
+            self.execute_command(command)
