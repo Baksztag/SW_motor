@@ -1,10 +1,10 @@
 import queue
 
-# from vehicle.Vehicle import Vehicle
+from vehicle.Vehicle import Vehicle
 # from control.KeyboardControl import KeyboardControl
 from control.BluetoothControl import BluetoothControl
 
-command_queue = queue.Queue(50)
+command_queue = queue.Queue(100)
 
 # vehicle = Vehicle(command_queue)
 # control = KeyboardControl(command_queue)
@@ -13,5 +13,8 @@ command_queue = queue.Queue(50)
 # control.run()
 # vehicle.join()
 
+vehicle = Vehicle(command_queue)
 control = BluetoothControl(command_queue)
+vehicle.start()
 control.run()
+vehicle.join()

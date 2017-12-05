@@ -1,4 +1,6 @@
 import socket
+from control.Command import Command
+from control.command_types import *
 
 HOST_MAC_ADDRESS = 'b8:27:eb:16:7a:5c'
 PORT = 3
@@ -14,7 +16,7 @@ class BluetoothControl:
         self.__command_queue.put(command)
 
     def __parse_command(self, command):
-        split_command = command.split(':')
+        split_command = str(command)[2:-1].split(':')
         if len(split_command) == 2:
             return {
                 'x': int(split_command[0]),
@@ -31,4 +33,8 @@ class BluetoothControl:
         while True:
             data = client.recv(SIZE)
             command = self.__parse_command(data)
+            if command['x'] > 0:
+                self.__push_command(Command(GO_FORWARD))
+            if command['x'] < 0:
+                self.__push_command(Command(GO_BACKWARD))
             print(command)
