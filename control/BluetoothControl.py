@@ -14,11 +14,11 @@ class BluetoothControl:
         self.__command_queue.put(command)
 
     def __parse_command(self, command):
-        split_command = command.split(';')
+        split_command = command.split(':')
         if len(split_command) == 2:
             return {
-                'x': split_command[0],
-                'y': split_command[1]
+                'x': int(split_command[0]),
+                'y': int(split_command[1])
             }
         return {}
 
@@ -27,13 +27,8 @@ class BluetoothControl:
         s.bind((HOST_MAC_ADDRESS, PORT))
         s.listen(BACKLOG)
 
-        try:
-            client, address = s.accept()
-            while True:
-                data = client.recv(SIZE)
-                command = self.__parse_command(data)
-                print(command)
-        except:
-            print("Closing socket")
-            client.close()
-            s.close()
+        client, address = s.accept()
+        while True:
+            data = client.recv(SIZE)
+            command = self.__parse_command(data)
+            print(command)
