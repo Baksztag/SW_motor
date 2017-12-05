@@ -9,7 +9,7 @@ class KeyboardControl:
 
     def __push_command(self, command):
         self.__queue_lock.acquire()
-        self.__command_queue.push(command)
+        self.__command_queue.put(command)
         self.__queue_lock.release()
 
     def run(self):
