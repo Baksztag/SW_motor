@@ -33,8 +33,9 @@ class BluetoothControl:
         while True:
             data = client.recv(SIZE)
             command = self.__parse_command(data)
-            if command['x'] > 0:
-                self.__push_command(Command(GO_FORWARD))
-            if command['x'] < 0:
-                self.__push_command(Command(GO_BACKWARD))
+            if len(command.keys()) == 2:
+                if command['x'] > 0:
+                    self.__push_command(Command(GO_FORWARD))
+                if command['x'] < 0:
+                    self.__push_command(Command(GO_BACKWARD))
             print(command)
