@@ -34,18 +34,18 @@ class Motor(threading.Thread):
         step_counter = 0
 
         while True:
-                while self.__control.speed > 0.000001 and self.__control.running:
-                    for pin in range(0, 4):
-                        xpin = self.__pins[pin]
-                        if self.__sequence[step_counter][pin] != 0:
-                            GPIO.output(xpin, True)
-                        else:
-                            GPIO.output(xpin, False)
+            while self.__control.speed > 0.000001 and self.__control.running:
+                for pin in range(0, 4):
+                    xpin = self.__pins[pin]
+                    if self.__sequence[step_counter][pin] != 0:
+                        GPIO.output(xpin, True)
+                    else:
+                        GPIO.output(xpin, False)
 
-                    step_counter += self.__control.direction
-                    if step_counter >= step_count:
-                        step_counter = 0
-                    if step_counter < 0:
-                        step_counter = step_count - 1
+                step_counter += self.__control.direction
+                if step_counter >= step_count:
+                    step_counter = 0
+                if step_counter < 0:
+                    step_counter = step_count - 1
 
-                    time.sleep(1 / (self.__max_speed * self.__control.speed))
+                time.sleep(1 / (self.__max_speed * self.__control.speed))
