@@ -3,14 +3,11 @@ from control.command_types import *
 
 
 class KeyboardControl:
-    def __init__(self, queue, lock):
+    def __init__(self, queue):
         self.__command_queue = queue
-        self.__queue_lock = lock
 
     def __push_command(self, command):
-        self.__queue_lock.acquire()
         self.__command_queue.put(command)
-        self.__queue_lock.release()
 
     def run(self):
         while True:
