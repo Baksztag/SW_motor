@@ -31,25 +31,29 @@ class VehicleDrive(threading.Thread):
         self.__left_motor_control.stop_motor()
         self.__right_motor_control.stop_motor()
 
-    def go_forward(self):
+    def go_forward(self, speed):
         if self.__left_motor_control.direction != -1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != 1:
             self.__right_motor_control.switch_direction()
+        self.__left_motor_control.change_speed(speed)
+        self.__right_motor_control.change_speed(speed)
 
-    def go_backwards(self):
+    def go_backwards(self, speed):
         if self.__left_motor_control.direction != 1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != -1:
             self.__right_motor_control.switch_direction()
+        self.__left_motor_control.change_speed(speed)
+        self.__right_motor_control.change_speed(speed)
 
-    def turn_left(self):
+    def turn_left(self, ratio):
         if self.__left_motor_control.direction != 1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != 1:
             self.__right_motor_control.switch_direction()
 
-    def turn_right(self):
+    def turn_right(self, ratio):
         if self.__left_motor_control.direction != -1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != -1:
