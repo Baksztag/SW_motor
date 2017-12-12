@@ -48,14 +48,24 @@ class VehicleDrive(threading.Thread):
         self.__right_motor_control.change_speed(speed)
 
     def turn_left(self, ratio):
-        if self.__left_motor_control.direction != 1:
-            self.__left_motor_control.switch_direction()
-        if self.__right_motor_control.direction != 1:
-            self.__right_motor_control.switch_direction()
+        current_speed = self.__left_motor_control.speed \
+            if self.__left_motor_control.speed >= self.__right_motor_control.speed \
+            else self.__right_motor_control.speed
+        self.__left_motor_control.speed = current_speed
+        self.__right_motor_control.speed = (1 - ratio) * current_speed
+        # if self.__left_motor_control.direction != 1:
+        #     self.__left_motor_control.switch_direction()
+        # if self.__right_motor_control.direction != 1:
+        #     self.__right_motor_control.switch_direction()
 
     def turn_right(self, ratio):
-        if self.__left_motor_control.direction != -1:
-            self.__left_motor_control.switch_direction()
-        if self.__right_motor_control.direction != -1:
-            self.__right_motor_control.switch_direction()
+        current_speed = self.__left_motor_control.speed \
+            if self.__left_motor_control.speed >= self.__right_motor_control.speed \
+            else self.__right_motor_control.speed
+        self.__left_motor_control.speed = (1 - ratio) * current_speed
+        self.__right_motor_control.speed = current_speed
+        # if self.__left_motor_control.direction != -1:
+        #     self.__left_motor_control.switch_direction()
+        # if self.__right_motor_control.direction != -1:
+        #     self.__right_motor_control.switch_direction()
 
