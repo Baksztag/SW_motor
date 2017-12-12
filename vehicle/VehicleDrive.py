@@ -31,39 +31,45 @@ class VehicleDrive(threading.Thread):
         self.__left_motor_control.stop_motor()
         self.__right_motor_control.stop_motor()
 
-    def go_forward(self, speed):
+    def go_forward(self, speed, ratio):
         if self.__left_motor_control.direction != -1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != 1:
             self.__right_motor_control.switch_direction()
-        self.__left_motor_control.change_speed(speed)
-        self.__right_motor_control.change_speed(speed)
+        if ratio < 0.0001:
+            self.__left_motor_control.change_speed(speed * abs(ratio))
+        else:
+            self.__right_motor_control.change_speed(speed * abs(ratio))
 
-    def go_backwards(self, speed):
+    def go_backwards(self, speed, ratio):
         if self.__left_motor_control.direction != 1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != -1:
             self.__right_motor_control.switch_direction()
         self.__left_motor_control.change_speed(speed)
         self.__right_motor_control.change_speed(speed)
+        if ratio < 0.0001:
+            self.__left_motor_control.change_speed(speed * abs(ratio))
+        else:
+            self.__right_motor_control.change_speed(speed * abs(ratio))
 
-    def turn_left(self, ratio):
-        current_speed = self.__left_motor_control.speed \
-            if self.__left_motor_control.speed >= self.__right_motor_control.speed \
-            else self.__right_motor_control.speed
-        self.__left_motor_control.speed = current_speed
-        self.__right_motor_control.speed = (1 - ratio) * current_speed
+    # def turn_left(self, ratio):
+        # current_speed = self.__left_motor_control.speed \
+        #     if self.__left_motor_control.speed >= self.__right_motor_control.speed \
+        #     else self.__right_motor_control.speed
+        # self.__left_motor_control.speed = current_speed
+        # self.__right_motor_control.speed = (1 - ratio) * current_speed
         # if self.__left_motor_control.direction != 1:
         #     self.__left_motor_control.switch_direction()
         # if self.__right_motor_control.direction != 1:
         #     self.__right_motor_control.switch_direction()
 
-    def turn_right(self, ratio):
-        current_speed = self.__left_motor_control.speed \
-            if self.__left_motor_control.speed >= self.__right_motor_control.speed \
-            else self.__right_motor_control.speed
-        self.__left_motor_control.speed = (1 - ratio) * current_speed
-        self.__right_motor_control.speed = current_speed
+    # def turn_right(self, ratio):
+        # current_speed = self.__left_motor_control.speed \
+        #     if self.__left_motor_control.speed >= self.__right_motor_control.speed \
+        #     else self.__right_motor_control.speed
+        # self.__left_motor_control.speed = (1 - ratio) * current_speed
+        # self.__right_motor_control.speed = current_speed
         # if self.__left_motor_control.direction != -1:
         #     self.__left_motor_control.switch_direction()
         # if self.__right_motor_control.direction != -1:

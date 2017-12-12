@@ -15,13 +15,13 @@ class Vehicle(threading.Thread):
         elif command.type == STOP:
             self.__drive.stop_vehicle()
         elif command.type == GO_FORWARD:
-            self.__drive.go_forward(command.value)
+            self.__drive.go_forward(command.speed, command.ratio)
         elif command.type == GO_BACKWARD:
-            self.__drive.go_backwards(command.value)
-        elif command.type == GO_LEFT:
-            self.__drive.turn_left(command.value)
-        elif command.type == GO_RIGHT:
-            self.__drive.turn_right(command.value)
+            self.__drive.go_backwards(command.speed, command.ratio)
+        # elif command.type == GO_LEFT:
+        #     self.__drive.turn_left(command.value)
+        # elif command.type == GO_RIGHT:
+        #     self.__drive.turn_right(command.value)
         else:
             pass
 

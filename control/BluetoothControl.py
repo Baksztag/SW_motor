@@ -35,11 +35,7 @@ class BluetoothControl:
             command = self.__parse_command(data)
             if len(command.keys()) == 2:
                 if command['x'] >= 100:
-                    self.__push_command(Command(GO_FORWARD, (command['x'] - 100) / 100))
+                    self.__push_command(Command(GO_FORWARD, (command['x'] - 100) / 100, (command['y'] - 100) / 100))
                 if command['x'] < 100:
-                    self.__push_command(Command(GO_BACKWARD, (command['x'] / 100)))
-                if command['y'] >= 100:
-                    self.__push_command(Command(GO_RIGHT, (command['y'] - 100) / 100))
-                if command['y'] < 100:
-                    self.__push_command(Command(GO_LEFT, (command['y'] / 100)))
+                    self.__push_command(Command(GO_BACKWARD, (command['x'] / 100), (command['y'] - 100) / 100))
             print(command)
