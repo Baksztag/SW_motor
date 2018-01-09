@@ -20,3 +20,4 @@ class MotorControl:
             self.speed = 1
         else:
             self.speed = speed
+        print(self.speed)
