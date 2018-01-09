@@ -37,18 +37,20 @@ class VehicleDrive(threading.Thread):
         if self.__right_motor_control.direction != 1:
             self.__right_motor_control.switch_direction()
 
-        if ratio > 100:
+        if ratio >= 100:
+            new_speed = (speed - 100) / 100 
             new_ratio = (200 - ratio) / 100
-            self.__right_motor_control.change_speed(speed * abs(new_ratio))
+            print(new_ratio)
+            self.__right_motor_control.change_speed(new_speed * abs(new_ratio))
+            self.__left_motor_control.change_speed(new_speed)
         else:
             new_ratio = (100 - ratio) / 100
-            self.__left_motor_control.change_speed(speed * abs(new_ratio))
-        # if ratio < 0.0001:
-        #     self.__left_motor_control.change_speed(speed * abs(ratio))
-        # else:
-        #     self.__right_motor_control.change_speed(speed * abs(ratio))
+            self.__left_motor_control.change_speed(new_speed * abs(new_ratio))
+            self.__right_motor_control.change_speed(new_speed)
 
     def go_backwards(self, speed, ratio):
+        new_speed = (100 - speed) / 100
+	new_ratio = (100 - ratio) / 100
         if self.__left_motor_control.direction != 1:
             self.__left_motor_control.switch_direction()
         if self.__right_motor_control.direction != -1:
